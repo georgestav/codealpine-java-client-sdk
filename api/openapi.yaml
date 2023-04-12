@@ -1,0 +1,729 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: The codealpine API description
+  title: Codealpine
+  version: "1.0"
+servers:
+- description: Local server
+  url: http://localhost:3045
+- description: Production server
+  url: https://api.codealpine.com
+paths:
+  /api:
+    get:
+      operationId: AppController_getInfo
+      parameters: []
+      responses:
+        "200": {}
+      x-accepts: application/json
+  /api/v1/navlinks:
+    get:
+      operationId: NavlinksControllerV1_findAll
+      parameters: []
+      responses:
+        "200": {}
+      tags:
+      - Navigation Links
+      x-accepts: application/json
+    post:
+      operationId: NavlinksControllerV1_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNavlinkDto'
+        required: true
+      responses:
+        "201": {}
+      tags:
+      - Navigation Links
+      x-contentType: application/json
+      x-accepts: application/json
+  /api/v1/navlinks/{id}:
+    delete:
+      operationId: NavlinksControllerV1_remove
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+      tags:
+      - Navigation Links
+      x-accepts: application/json
+    get:
+      operationId: NavlinksControllerV1_findOne
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+      tags:
+      - Navigation Links
+      x-accepts: application/json
+    patch:
+      operationId: NavlinksControllerV1_update
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNavlinkDto'
+        required: true
+      responses:
+        "200": {}
+      tags:
+      - Navigation Links
+      x-contentType: application/json
+      x-accepts: application/json
+  /api/v1/notification:
+    get:
+      operationId: NotificationController_findAll
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Notification'
+                type: array
+      security:
+      - bearer: []
+      tags:
+      - Notifications
+      x-accepts: application/json
+    post:
+      operationId: NotificationController_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNotificationDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - bearer: []
+      tags:
+      - Notifications
+      x-contentType: application/json
+      x-accepts: application/json
+  /api/v1/notification/{id}:
+    delete:
+      operationId: NotificationController_remove
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - bearer: []
+      tags:
+      - Notifications
+      x-accepts: application/json
+    get:
+      operationId: NotificationController_findOne
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - bearer: []
+      tags:
+      - Notifications
+      x-accepts: application/json
+    patch:
+      operationId: NotificationController_update
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      security:
+      - bearer: []
+      tags:
+      - Notifications
+      x-contentType: application/json
+      x-accepts: application/json
+  /api/v1/climbing-questionnaire/user:
+    get:
+      operationId: ClimbingQuestionnaireController_findForUser
+      parameters:
+      - explode: false
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClimbingQuestionnaire'
+                type: array
+      security:
+      - bearer: []
+      tags:
+      - Climbing Questionnaire
+      x-accepts: application/json
+  /api/v1/climbing-questionnaire/all/{withQuestions}:
+    get:
+      operationId: ClimbingQuestionnaireController_findAll
+      parameters:
+      - explode: false
+        in: path
+        name: withQuestions
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClimbingQuestionnaire'
+                type: array
+      security:
+      - bearer: []
+      tags:
+      - Climbing Questionnaire
+      x-accepts: application/json
+  /api/v1/climbing-questionnaire/{id}/{withQuestions}:
+    get:
+      operationId: ClimbingQuestionnaireController_findOne
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: withQuestions
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClimbingQuestionnaire'
+      security:
+      - bearer: []
+      tags:
+      - Climbing Questionnaire
+      x-accepts: application/json
+  /api/v1/climbing-questionnaire/analysis/{questionnaire}:
+    post:
+      operationId: ClimbingQuestionnaireController_getAnalysisMessage
+      parameters:
+      - explode: false
+        in: path
+        name: questionnaire
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        "200": {}
+      security:
+      - bearer: []
+      tags:
+      - Climbing Questionnaire
+      x-accepts: application/json
+  /api/v1/climbing-questionnaire/save-answers:
+    post:
+      operationId: ClimbingQuestionnaireController_saveUserQuestionnaire
+      parameters:
+      - explode: false
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201": {}
+      security:
+      - bearer: []
+      tags:
+      - Climbing Questionnaire
+      x-accepts: application/json
+  /api/v1/climbing-stats/user/assessment:
+    get:
+      operationId: ClimbingStatsController_getUserProfile
+      parameters:
+      - explode: false
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  type: object
+                type: array
+      security:
+      - bearer: []
+      tags:
+      - Climbing Stats
+      x-accepts: application/json
+  /api/v1/climbing-stats/user:
+    post:
+      operationId: ClimbingStatsController_getUserStats
+      parameters:
+      - explode: false
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - bearer: []
+      tags:
+      - Climbing Stats
+      x-accepts: application/json
+  /api/user/{id}:
+    patch:
+      operationId: UserController_update
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Users
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    CreateNavlinkDto:
+      example:
+        name: name
+        href: href
+        isActive: true
+      properties:
+        name:
+          type: string
+        href:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - href
+      - isActive
+      - name
+      type: object
+    UpdateNavlinkDto:
+      example:
+        name: name
+        href: href
+        isActive: true
+      properties:
+        name:
+          type: string
+        href:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - href
+      - isActive
+      - name
+      type: object
+    CreateNotificationDto:
+      example:
+        level: 6.027456183070403
+        created: 1.4658129805029452
+        id: 0.8008281904610115
+        title: title
+        message: message
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        message:
+          type: string
+        level:
+          type: number
+        created:
+          type: number
+      required:
+      - created
+      - id
+      - level
+      - message
+      - title
+      type: object
+    Notification:
+      example:
+        level: 6.027456183070403
+        created: 1.4658129805029452
+        id: 0.8008281904610115
+        title: title
+        message: message
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        message:
+          type: string
+        level:
+          type: number
+        created:
+          type: number
+      required:
+      - id
+      - level
+      - message
+      - title
+      type: object
+    UpdateNotificationDto:
+      example:
+        level: 6.027456183070403
+        created: 1.4658129805029452
+        id: 0.8008281904610115
+        title: title
+        message: message
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        message:
+          type: string
+        level:
+          type: number
+        created:
+          type: number
+      type: object
+    ClimbingQuestionnaireUser:
+      example:
+        result: 3.616076749251911
+        questionnaires:
+        - null
+        - null
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        answers: '{}'
+        id: 9.301444243932576
+        userId: userId
+      properties:
+        id:
+          type: number
+        userId:
+          type: string
+        result:
+          type: number
+        answers:
+          type: object
+        questionnaires:
+          items:
+            $ref: '#/components/schemas/ClimbingQuestionnaire'
+          type: array
+        analysis:
+          $ref: '#/components/schemas/ClimbingQuestionnaireAnalysis'
+        createdAt:
+          format: date-time
+          type: string
+      required:
+      - analysis
+      - answers
+      - createdAt
+      - id
+      - questionnaires
+      - result
+      - userId
+      type: object
+    ClimbingQuestionnaireAnalysis:
+      example:
+        minValue: 2.3021358869347655
+        maxValue: 7.061401241503109
+        id: 5.637376656633329
+        message: message
+        userResponse:
+          result: 3.616076749251911
+          questionnaires:
+          - null
+          - null
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          answers: '{}'
+          id: 9.301444243932576
+          userId: userId
+      properties:
+        id:
+          type: number
+        message:
+          type: string
+        minValue:
+          type: number
+        maxValue:
+          type: number
+        questionnaire:
+          $ref: '#/components/schemas/ClimbingQuestionnaire'
+        userResponse:
+          $ref: '#/components/schemas/ClimbingQuestionnaireUser'
+      required:
+      - id
+      - maxValue
+      - message
+      - minValue
+      - questionnaire
+      - userResponse
+      type: object
+    ClimbingQuestionnaire:
+      example:
+        description: description
+        accessRequired: accessRequired
+        id: 0.8008281904610115
+        title: title
+        analysis:
+        - minValue: 2.3021358869347655
+          maxValue: 7.061401241503109
+          id: 5.637376656633329
+          message: message
+          userResponse:
+            result: 3.616076749251911
+            questionnaires:
+            - null
+            - null
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            answers: '{}'
+            id: 9.301444243932576
+            userId: userId
+        - minValue: 2.3021358869347655
+          maxValue: 7.061401241503109
+          id: 5.637376656633329
+          message: message
+          userResponse:
+            result: 3.616076749251911
+            questionnaires:
+            - null
+            - null
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            answers: '{}'
+            id: 9.301444243932576
+            userId: userId
+        userResponses:
+        - result: 3.616076749251911
+          questionnaires:
+          - null
+          - null
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          answers: '{}'
+          id: 9.301444243932576
+          userId: userId
+        - result: 3.616076749251911
+          questionnaires:
+          - null
+          - null
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          answers: '{}'
+          id: 9.301444243932576
+          userId: userId
+        slug: slug
+        climbingQuestion:
+        - question: question
+          answers:
+          - answer: answer
+            id: 1.4658129805029452
+            value: 5.962133916683182
+          - answer: answer
+            id: 1.4658129805029452
+            value: 5.962133916683182
+          id: 6.027456183070403
+          slug: slug
+        - question: question
+          answers:
+          - answer: answer
+            id: 1.4658129805029452
+            value: 5.962133916683182
+          - answer: answer
+            id: 1.4658129805029452
+            value: 5.962133916683182
+          id: 6.027456183070403
+          slug: slug
+      properties:
+        id:
+          type: number
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        accessRequired:
+          type: string
+        climbingQuestion:
+          items:
+            $ref: '#/components/schemas/ClimbingQuestion'
+          type: array
+        analysis:
+          items:
+            $ref: '#/components/schemas/ClimbingQuestionnaireAnalysis'
+          type: array
+        userResponses:
+          items:
+            $ref: '#/components/schemas/ClimbingQuestionnaireUser'
+          type: array
+      required:
+      - accessRequired
+      - analysis
+      - climbingQuestion
+      - description
+      - id
+      - slug
+      - title
+      - userResponses
+      type: object
+    ClimbingProvidedAnswers:
+      example:
+        answer: answer
+        id: 1.4658129805029452
+        value: 5.962133916683182
+      properties:
+        id:
+          type: number
+        value:
+          type: number
+        answer:
+          type: string
+        question:
+          $ref: '#/components/schemas/ClimbingQuestion'
+      required:
+      - answer
+      - id
+      - question
+      - value
+      type: object
+    ClimbingQuestion:
+      example:
+        question: question
+        answers:
+        - answer: answer
+          id: 1.4658129805029452
+          value: 5.962133916683182
+        - answer: answer
+          id: 1.4658129805029452
+          value: 5.962133916683182
+        id: 6.027456183070403
+        slug: slug
+      properties:
+        id:
+          type: number
+        slug:
+          type: string
+        question:
+          type: string
+        questionnaire:
+          $ref: '#/components/schemas/ClimbingQuestionnaire'
+        answers:
+          items:
+            $ref: '#/components/schemas/ClimbingProvidedAnswers'
+          type: array
+      required:
+      - answers
+      - id
+      - question
+      - questionnaire
+      - slug
+      type: object
+    UpdateUserDto:
+      properties: {}
+      type: object
+
